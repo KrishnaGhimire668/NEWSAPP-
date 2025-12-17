@@ -2,9 +2,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
-/* =========================
-   HELPER
-========================= */
 const getJwtSecret = () => {
   if (!process.env.SECRETKEY) {
     throw new Error("SECRETKEY is missing in .env");
@@ -12,9 +9,6 @@ const getJwtSecret = () => {
   return process.env.SECRETKEY;
 };
 
-/* =========================
-   MIDDLEWARE: PROTECT ROUTES
-========================= */
 export const requireLogin = async (req, res, next) => {
   try {
     const token = req.cookies.token;
@@ -37,9 +31,6 @@ export const requireLogin = async (req, res, next) => {
   }
 };
 
-/* =========================
-   REGISTER
-========================= */
 export const registerUser = async (req, res) => {
   const { firstName, lastName, userName, email, phone, password } = req.body;
 
@@ -96,9 +87,6 @@ export const registerUser = async (req, res) => {
   }
 };
 
-/* =========================
-   LOGIN
-========================= */
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -147,9 +135,6 @@ export const loginUser = async (req, res) => {
   }
 };
 
-/* =========================
-   LOGOUT
-========================= */
 export const logoutUser = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
@@ -159,9 +144,6 @@ export const logoutUser = (req, res) => {
   res.status(200).json({ message: "Logged out successfully" });
 };
 
-/* =========================
-   GET PROFILE
-========================= */
 export const getProfile = (req, res) => {
   res.status(200).json({ user: req.user });
 };

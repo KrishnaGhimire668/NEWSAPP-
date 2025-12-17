@@ -9,16 +9,17 @@ const authenticate = async (req, res, next) => {
       return res.status(401).json({ message: "Unauthorized: No token" });
     }
 
-    // ✅ token contains { id: userId }
     const decoded = jwt.verify(token, process.env.SECRETKEY);
 
-    const rootUser = await User.findById(decoded.id).select("-password");
+    const user = await User.findById(decoded.id).select("-password");
 
-    if (!rootUser) {
+    if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
 
-    req.rootUser = rootUser;
+    req.user = user;
+    req.userId = user._id;
+
     next();
   } catch (error) {
     console.error("Auth error:", error.message);

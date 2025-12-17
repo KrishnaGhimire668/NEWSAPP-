@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
-/* 🔒 ONE BRAND COLOR (same as Navbar logo & buttons) */
 const BRAND_COLOR = "#1f2937";
 
 const SignUpForm = () => {
@@ -30,20 +29,15 @@ const SignUpForm = () => {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include", // important for cookies
+        credentials: "include", //  for cookies
         body: JSON.stringify(user),
       });
 
       const data = await res.json();
 
       if (res.status === 201) {
-        // ✅ update context immediately
         dispatch({ type: "USER", payload: true });
-
-        // ✅ optional: store user info locally if needed
         localStorage.setItem("user", JSON.stringify(data.user));
-
-        // ✅ redirect to profile
         navigate("/profile");
       } else {
         alert(data.error || "Registration failed");

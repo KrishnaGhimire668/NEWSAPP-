@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const reducer = (state, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case "USER":
       return { ...state, isLoggedIn: action.payload };
     case "SET_NEWS":
@@ -18,12 +18,14 @@ const reducer = (state, action) => {
     case "UPDATE_NEWS":
       return {
         ...state,
-        newsList: state.newsList.map(n => n._id === action.payload._id ? action.payload : n)
+        newsList: state.newsList.map((n) =>
+          n._id === action.payload._id ? action.payload : n
+        ),
       };
     case "DELETE_NEWS":
       return {
         ...state,
-        newsList: state.newsList.filter(n => n._id !== action.payload)
+        newsList: state.newsList.filter((n) => n._id !== action.payload),
       };
     default:
       return state;

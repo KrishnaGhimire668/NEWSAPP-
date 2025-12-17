@@ -8,7 +8,10 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const logout = async () => {
-    await fetch("/api/auth/logout", { credentials: "include" });
+    await fetch("/api/auth/logout", {
+      method: "POST",
+      credentials: "include",
+    });
     dispatch({ type: "USER", payload: false });
     navigate("/login");
   };
@@ -35,6 +38,14 @@ const Navbar = () => {
     border: "1px solid #1f2937",
     background: "#1f2937",
     color: "#fff",
+  };
+
+  const inputStyle = {
+    padding: "6px 10px",
+    border: "1px solid #1f2937",
+    borderRadius: "5px",
+    outline: "none",
+    width: "140px",
   };
 
   return (
@@ -69,7 +80,6 @@ const Navbar = () => {
           gap: "14px",
         }}
       >
-        {/* LINKS */}
         <Link to="/" style={linkStyle}>All</Link>
         <Link to="/science" style={linkStyle}>Science</Link>
         <Link to="/sports" style={linkStyle}>Sports</Link>
@@ -77,26 +87,18 @@ const Navbar = () => {
         <Link to="/politics" style={linkStyle}>Politics</Link>
         <Link to="/education" style={linkStyle}>Education</Link>
 
-        {/* SEARCH */}
         <form onSubmit={handleSearch} style={{ display: "flex", gap: "6px" }}>
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search..."
-            style={{
-              padding: "6px 10px",
-              border: "1px solid #1f2937",
-              borderRadius: "5px",
-              outline: "none",
-              width: "140px",
-            }}
+            style={inputStyle}
           />
           <button type="submit" style={buttonStyle}>Go</button>
         </form>
 
-        {/* AUTH */}
-        {state ? (
+        {state.isLoggedIn ? (
           <>
             <Link to="/profile" style={buttonStyle}>Profile</Link>
             <button onClick={logout} style={buttonStyle}>Logout</button>

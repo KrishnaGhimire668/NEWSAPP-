@@ -1,8 +1,5 @@
 import News from "../models/News.js";
 
-// @desc    Create news
-// @route   POST /api/news
-// @access  Private
 export const createNews = async (req, res) => {
   try {
     const { title, description } = req.body;
@@ -24,7 +21,7 @@ export const createNews = async (req, res) => {
       description,
       media,
       mediaType,
-      author: req.rootUser._id,
+      author: req.userId, 
     });
 
     res.status(201).json(news);
@@ -34,16 +31,12 @@ export const createNews = async (req, res) => {
   }
 };
 
-// @desc    Update news
-// @route   PUT /api/news/:id
-// @access  Private
 export const updateNews = async (req, res) => {
   try {
     const news = await News.findById(req.params.id);
     if (!news) return res.status(404).json({ message: "News not found" });
 
-    // only owner can update
-    if (news.author.toString() !== req.rootUser._id.toString()) {
+    if (news.author.toString() !== req.userId.toString()) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
@@ -63,29 +56,24 @@ export const updateNews = async (req, res) => {
   }
 };
 
-// @desc    Get all news
-// @route   GET /api/news
-// @access  Public
 export const getAllNews = async (req, res) => {
   try {
     const news = await News.find()
       .sort({ createdAt: -1 })
       .populate("author", "firstName lastName");
+
     res.status(200).json(news);
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// @desc    Delete news
-// @route   DELETE /api/news/:id
-// @access  Private
 export const deleteNews = async (req, res) => {
   try {
     const news = await News.findById(req.params.id);
     if (!news) return res.status(404).json({ message: "News not found" });
 
-    if (news.author.toString() !== req.rootUser._id.toString()) {
+    if (news.author.toString() !== req.userId.toString()) {
       return res.status(403).json({ message: "Not authorized" });
     }
 

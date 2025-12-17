@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
-/* 🔒 ONE BRAND COLOR (same as Navbar logo & buttons) */
 const BRAND_COLOR = "#1f2937";
 
 const LoginForm = () => {
@@ -39,7 +38,6 @@ const LoginForm = () => {
     }
   };
 
-  /* INPUT STYLE */
   const inputStyle = {
     padding: "10px",
     borderRadius: "5px",
@@ -50,7 +48,6 @@ const LoginForm = () => {
     background: "#fff",
   };
 
-  /* BUTTON STYLE (same as SignUp) */
   const buttonStyle = {
     padding: "10px",
     borderRadius: "5px",

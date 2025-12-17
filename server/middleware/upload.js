@@ -1,7 +1,6 @@
 import multer from "multer";
 import path from "path";
 
-// Storage config
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
@@ -15,7 +14,7 @@ const storage = multer.diskStorage({
   },
 });
 
-// File filter (image + video only)
+
 const fileFilter = (req, file, cb) => {
   if (
     file.mimetype.startsWith("image") ||

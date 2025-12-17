@@ -3,7 +3,6 @@ node_modules/
 npm-debug.log*
 yarn-error.log*
 
-# Env files
 .env
 
 # Build
@@ -13,5 +12,4 @@ build/
 # OS
 .DS_Store
 
-# Uploads (optional – depends on you)
 uploads/

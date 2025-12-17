@@ -16,7 +16,6 @@ function App() {
         <Route path="/signup" element={<SignUpForm />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/" element={<div style={{ padding: "20px" }}></div>} />
       </Routes>
     </UserProvider>
   );
