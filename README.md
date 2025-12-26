@@ -22,8 +22,8 @@ All news posts are visible publicly.
  ## Project Structure
 
 NEWSAPP/
-├── client/
-├── server/
+- client/
+- server/
 
 
 ## Installation
